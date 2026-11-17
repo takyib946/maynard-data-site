@@ -9,139 +9,258 @@
 <title>Maynard Data Site</title>
 
 <style>
+:root {
+  --navy: #071426;
+  --blue: #0878df;
+  --light-blue: #38bdf8;
+  --bg: #f2f6fc;
+  --white: #ffffff;
+  --text: #142033;
+  --muted: #64748b;
+}
+
 * {
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #f3f6fb;
-  color: #142033;
+  background: var(--bg);
+  color: var(--text);
 }
 
 header {
-  background: #071426;
+  background: var(--navy);
   color: white;
-  padding: 22px 18px;
-  text-align: center;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .logo {
-  font-size: 27px;
+  font-size: 23px;
   font-weight: 900;
   letter-spacing: 1px;
 }
 
 .logo span {
-  color: #38bdf8;
+  color: var(--light-blue);
 }
 
-header p {
-  color: #cbd5e1;
-  font-size: 13px;
+.header-tag {
+  font-size: 11px;
+  color: #bfdbfe;
+  letter-spacing: 1px;
 }
 
 nav {
+  background: white;
   display: flex;
   justify-content: center;
-  gap: 15px;
-  padding: 14px;
+  gap: 25px;
+  padding: 15px;
   flex-wrap: wrap;
+  box-shadow: 0 3px 12px #00000008;
 }
 
 nav a {
-  color: #142033;
+  color: var(--text);
   text-decoration: none;
-  font-weight: bold;
   font-size: 13px;
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: var(--blue);
 }
 
 .hero {
-  background: linear-gradient(135deg,#071426,#123b70);
+  background:
+    radial-gradient(circle at top right,#1765b5 0%,transparent 40%),
+    linear-gradient(135deg,#071426,#123b70);
   color: white;
-  padding: 35px 20px;
+  padding: 65px 20px;
   text-align: center;
 }
 
+.hero-label {
+  display: inline-block;
+  background: #ffffff18;
+  border: 1px solid #ffffff30;
+  padding: 8px 14px;
+  border-radius: 30px;
+  color: #bae6fd;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
 .hero h1 {
-  font-size: 29px;
-  margin: 5px;
+  font-size: clamp(30px,6vw,45px);
+  margin: 20px 0 12px;
+}
+
+.hero h1 span {
+  color: var(--light-blue);
 }
 
 .hero p {
   color: #dbeafe;
-  line-height: 1.6;
+  line-height: 1.8;
+  max-width: 500px;
+  margin: auto;
+}
+
+.hero-button {
+  display: inline-block;
+  background: var(--blue);
+  color: white;
+  padding: 14px 25px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 25px;
 }
 
 .container {
-  max-width: 650px;
+  max-width: 850px;
   margin: auto;
-  padding: 18px;
+  padding: 22px 17px;
 }
 
-.section-title {
+.section-heading {
   text-align: center;
-  margin: 25px 0 16px;
+  margin: 35px 0 20px;
 }
 
-.products {
+.section-heading h2 {
+  margin-bottom: 8px;
+  font-size: 25px;
+}
+
+.section-heading p {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.networks {
   display: grid;
   grid-template-columns: repeat(3,1fr);
-  gap: 10px;
+  gap: 12px;
 }
 
-.product {
+.network {
   background: white;
-  border-radius: 13px;
-  padding: 19px 7px;
+  border-radius: 15px;
+  padding: 20px 8px;
   text-align: center;
-  box-shadow: 0 3px 12px #0000000c;
+  box-shadow: 0 4px 15px #00000008;
+  border: 1px solid #e8edf5;
 }
 
-.product strong {
+.network strong {
   display: block;
-  margin-top: 9px;
+  margin-top: 8px;
+  font-size: 14px;
 }
 
-.product span {
+.network-icon {
   font-size: 27px;
 }
 
-.form-card {
+.services {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 13px;
+}
+
+.service-card {
   background: white;
   border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 5px 20px #0000000c;
-  margin-top: 18px;
+  padding: 23px 10px;
+  text-align: center;
+  box-shadow: 0 4px 16px #00000008;
+  border: 1px solid #e8edf5;
+  transition: transform .2s;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+}
+
+.service-card span {
+  font-size: 32px;
+}
+
+.service-card h3 {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.service-card p {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.order-card {
+  background: white;
+  border-radius: 20px;
+  padding: 25px 20px;
+  box-shadow: 0 8px 30px #0000000c;
+  margin-top: 25px;
+  border: 1px solid #e8edf5;
+}
+
+.order-card h2 {
+  margin-top: 0;
+}
+
+.order-description {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
 }
 
 label {
   display: block;
+  font-size: 13px;
   font-weight: bold;
-  font-size: 14px;
-  margin: 15px 0 7px;
+  margin: 17px 0 8px;
 }
 
 input, select {
   width: 100%;
-  padding: 14px;
-  border: 1px solid #d5dce7;
-  border-radius: 9px;
-  font-size: 15px;
-  background: white;
+  padding: 15px;
+  border: 1px solid #dbe3ef;
+  border-radius: 11px;
+  font-size: 14px;
+  background: #fbfdff;
+  outline: none;
+  color: var(--text);
+}
+
+input:focus, select:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px #0878df15;
 }
 
 button {
   width: 100%;
-  padding: 15px;
-  background: #0878df;
+  background: linear-gradient(135deg,#0878df,#0754b5);
   color: white;
-  border: 0;
-  border-radius: 10px;
+  border: none;
+  border-radius: 11px;
+  padding: 16px;
+  font-size: 15px;
   font-weight: bold;
-  font-size: 16px;
-  margin-top: 20px;
+  margin-top: 23px;
   cursor: pointer;
 }
 
@@ -150,26 +269,74 @@ button:disabled {
   cursor: not-allowed;
 }
 
-.note {
+.payment-note {
+  background: #eff6ff;
+  border: 1px solid #dbeafe;
+  border-radius: 12px;
+  padding: 13px;
   font-size: 12px;
-  color: #64748b;
+  color: #1e40af;
   line-height: 1.6;
+  margin-top: 18px;
 }
 
 #message {
+  font-size: 13px;
+  line-height: 1.6;
   margin-top: 15px;
-  font-size: 14px;
-  line-height: 1.5;
   overflow-wrap: anywhere;
 }
 
 footer {
-  background: #071426;
-  color: #cbd5e1;
+  background: var(--navy);
+  color: white;
   text-align: center;
-  padding: 25px;
-  margin-top: 30px;
-  font-size: 13px;
+  padding: 35px 15px;
+  margin-top: 40px;
+}
+
+footer p {
+  color: #cbd5e1;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.footer-logo {
+  font-weight: 900;
+  font-size: 20px;
+}
+
+.footer-logo span {
+  color: var(--light-blue);
+}
+
+@media(max-width:500px) {
+  header {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .hero {
+    padding: 48px 17px;
+  }
+
+  .networks,
+  .services {
+    gap: 8px;
+  }
+
+  .network,
+  .service-card {
+    padding: 17px 5px;
+  }
+
+  .order-card {
+    padding: 20px 15px;
+  }
+
+  nav {
+    gap: 15px;
+  }
 }
 </style>
 </head>
@@ -178,167 +345,198 @@ footer {
 
 <header>
   <div class="logo">MAYNARD <span>DATA</span></div>
-  <p>DATA • AIRTIME • MASHUP</p>
+  <div class="header-tag">YOUR CONNECTIVITY PARTNER</div>
 </header>
 
 <nav>
-  <a href="#home">Home</a>
-  <a href="#products">Products</a>
-  <a href="#order">Place Order</a>
+  <a href="#home">HOME</a>
+  <a href="#networks">NETWORKS</a>
+  <a href="#services">SERVICES</a>
+  <a href="#order">PLACE ORDER</a>
 </nav>
 
 <section class="hero" id="home">
-  <h1>Welcome to Maynard Data Site</h1>
+  <div class="hero-label">WELCOME TO MAYNARD DATA SITE</div>
+
+  <h1>Stay Connected.<br><span>Stay Ahead.</span></h1>
+
   <p>
-    Buy your data, airtime and mashup easily.<br>
-    Fast service. Reliable support.
+    Your destination for data bundles, airtime
+    and mashup services. Choose your network
+    and submit your order with ease.
   </p>
+
+  <a class="hero-button" href="#order">Place Your Order →</a>
 </section>
 
 <main class="container">
 
-<h2 class="section-title" id="products">
-  Our Services
-</h2>
-
-<div class="products">
-  <div class="product">
-    <span>📶</span>
-    <strong>Data</strong>
+<section id="networks">
+  <div class="section-heading">
+    <h2>Choose Your Network</h2>
+    <p>We support these three networks.</p>
   </div>
 
-  <div class="product">
-    <span>📱</span>
-    <strong>Airtime</strong>
+  <div class="networks">
+    <div class="network">
+      <div class="network-icon">🟡</div>
+      <strong>MTN</strong>
+    </div>
+
+    <div class="network">
+      <div class="network-icon">🔴</div>
+      <strong>Telecel</strong>
+    </div>
+
+    <div class="network">
+      <div class="network-icon">🔵</div>
+      <strong>AT</strong>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="section-heading">
+    <h2>Our Services</h2>
+    <p>Everything you need in one place.</p>
   </div>
 
-  <div class="product">
-    <span>🎁</span>
-    <strong>Mashup</strong>
+  <div class="services">
+    <div class="service-card">
+      <span>📶</span>
+      <h3>Data Bundles</h3>
+      <p>Internet bundles</p>
+    </div>
+
+    <div class="service-card">
+      <span>📱</span>
+      <h3>Airtime</h3>
+      <p>Mobile credit</p>
+    </div>
+
+    <div class="service-card">
+      <span>🎁</span>
+      <h3>Mashup</h3>
+      <p>Special bundles</p>
+    </div>
   </div>
-</div>
+</section>
 
-<div class="form-card" id="order">
+<section id="order">
 
-  <h2>Place Your Order</h2>
+  <div class="section-heading">
+    <h2>Place Your Order</h2>
+    <p>Complete the form to submit your request.</p>
+  </div>
 
-  <p class="note">
-    Complete the form below to submit your order.
-  </p>
+  <div class="order-card">
 
-  <form id="orderForm">
+    <h2>Customer Order Form</h2>
 
-    <label for="network">Select Network</label>
-    <select id="network" required>
-      <option value="">Choose network</option>
-      <option value="MTN">MTN</option>
-      <option value="Telecel">Telecel</option>
-      <option value="AT">AT</option>
-    </select>
+    <p class="order-description">
+      Enter the correct details below.
+      Your order will be sent to our administrator.
+    </p>
 
-    <label for="service">Select Service</label>
-    <select id="service" required>
-      <option value="">Choose service</option>
-      <option value="Data">Data</option>
-      <option value="Airtime">Airtime</option>
-      <option value="Mashup">Mashup</option>
-    </select>
+    <form id="orderForm">
 
-    <label for="bundle">Bundle or Amount</label>
-    <input
-      id="bundle"
-      type="text"
-      placeholder="Example: 5GB or GH₵20 airtime"
-      required
-    >
+      <label for="customer">Customer Name</label>
+      <input id="customer" type="text"
+        placeholder="Enter your full name" required>
 
-    <label for="phone">Recipient Phone Number</label>
-    <input
-      id="phone"
-      type="tel"
-      placeholder="Enter phone number"
-      required
-    >
+      <label for="network">Select Network</label>
+      <select id="network" required>
+        <option value="">Choose network</option>
+        <option value="MTN">MTN</option>
+        <option value="Telecel">Telecel</option>
+        <option value="AT">AT</option>
+      </select>
 
-    <label for="customer">Your Name</label>
-    <input
-      id="customer"
-      type="text"
-      placeholder="Enter your name"
-      required
-    >
+      <label for="service">Select Service</label>
+      <select id="service" required>
+        <option value="">Choose service</option>
+        <option value="Data">Data</option>
+        <option value="Airtime">Airtime</option>
+        <option value="Mashup">Mashup</option>
+      </select>
 
-    <label for="amount">Order Price (GH₵)</label>
-    <input
-      id="amount"
-      type="number"
-      min="0.01"
-      step="0.01"
-      placeholder="Enter price"
-      required
-    >
+      <label for="bundle">Bundle or Amount</label>
+      <input id="bundle" type="text"
+        placeholder="Example: 5GB or GH₵20 airtime" required>
 
-    <label for="payment">Select Payment Method</label>
-    <select id="payment" required>
-      <option value="">Choose payment method</option>
-      <option value="MTN MoMo">MTN MoMo</option>
-      <option value="Telecel Cash">Telecel Cash</option>
-      <option value="AT Money">AT Money</option>
-    </select>
+      <label for="phone">Recipient Phone Number</label>
+      <input id="phone" type="tel"
+        placeholder="Enter recipient number" required>
 
-    <label for="reference">Payment Reference (if available)</label>
-    <input
-      id="reference"
-      type="text"
-      placeholder="Enter reference or leave blank"
-    >
+      <label for="amount">Order Price (GH₵)</label>
+      <input id="amount" type="number"
+        min="0.01" step="0.01"
+        placeholder="Enter price" required>
 
-    <button type="submit" id="submitButton">
-      Submit Order
-    </button>
+      <label for="payment">Payment Method</label>
+      <select id="payment" required>
+        <option value="">Choose payment method</option>
+        <option value="MTN MoMo">MTN MoMo</option>
+        <option value="Telecel Cash">Telecel Cash</option>
+        <option value="AT Money">AT Money</option>
+      </select>
 
-  </form>
+      <label for="reference">Payment Reference</label>
+      <input id="reference" type="text"
+        placeholder="Optional payment reference">
 
-  <div id="message" role="status" aria-live="polite"></div>
+      <button id="submitButton" type="submit">
+        SUBMIT ORDER →
+      </button>
 
-  <p class="note">
-    Your order will be saved for administrator review.
-    Payment must be verified before delivery.
-    Submitting this form does not confirm payment.
-  </p>
+    </form>
 
-</div>
+    <div id="message" role="status" aria-live="polite"></div>
+
+    <div class="payment-note">
+      <strong>Payment information</strong><br>
+      Orders are submitted for administrator review.
+      Payment must be verified before delivery.
+      Submitting an order does not confirm payment.
+    </div>
+
+  </div>
+</section>
+
 </main>
 
 <footer>
-  <strong>MAYNARD DATA SITE</strong>
-  <p>Data | Airtime | Mashup</p>
-  <p>© 2026 Maynard Data Site. All rights reserved.</p>
+  <div class="footer-logo">
+    MAYNARD <span>DATA</span>
+  </div>
+
+  <p>DATA • AIRTIME • MASHUP</p>
+
+  <p>
+    Reliable connectivity. Convenient ordering.<br>
+    © 2026 Maynard Data Site. All rights reserved.
+  </p>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
-// SUPABASE CONNECTION
+// SUPABASE SETTINGS
 const SUPABASE_URL =
   "https://jzdaqabewxizfdlctphm.supabase.co";
 
-// Replace this with your copied Publishable key.
 const SUPABASE_PUBLISHABLE_KEY =
-  "sb_publishable_1tHqPL1WOm2BLOObReSuhw_NkrEzVq4";
+  "PASTE_YOUR_SUPABASE_PUBLISHABLE_KEY_HERE";
 
 const ADMIN_WHATSAPP = "233592459293";
-
-const messageBox = document.getElementById("message");
-const submitButton = document.getElementById("submitButton");
 
 let supabaseClient = null;
 
 if (
   window.supabase &&
   SUPABASE_PUBLISHABLE_KEY !==
-  "PASTE_YOUR_SUPABASE_PUBLISHABLE_KEY_HERE"
+  "sb_publishable_1tHqPL1WOm2BLOObReSuhw_NkrEzVq4"
 ) {
   supabaseClient = window.supabase.createClient(
     SUPABASE_URL,
@@ -346,14 +544,17 @@ if (
   );
 }
 
-document.getElementById("orderForm")
-.addEventListener("submit", async function(event) {
+const form = document.getElementById("orderForm");
+const messageBox = document.getElementById("message");
+const submitButton = document.getElementById("submitButton");
+
+form.addEventListener("submit", async function(event) {
 
   event.preventDefault();
 
   if (!supabaseClient) {
     messageBox.textContent =
-      "Supabase is not configured. Add your Publishable key first.";
+      "Connection not ready. Check your Supabase Publishable key.";
     return;
   }
 
@@ -387,7 +588,7 @@ document.getElementById("orderForm")
   }
 
   submitButton.disabled = true;
-  submitButton.textContent = "Submitting...";
+  submitButton.textContent = "SUBMITTING...";
   messageBox.textContent = "";
 
   const order = {
@@ -405,32 +606,28 @@ document.getElementById("orderForm")
   try {
 
     const { error } = await supabaseClient
-  .from("orders")
-  .insert([order]);
-
-if (error) {
-  throw error;
-}
+      .from("orders")
+      .insert([order]);
 
     if (error) {
       throw error;
     }
 
     const whatsappMessage =
-      "MAYNARD DATA SITE - NEW ORDER\n\n"
+      "MAYNARD DATA SITE - NEW ORDER\n\n" +
       "Customer: " + customer + "\n" +
       "Network: " + network + "\n" +
       "Service: " + service + "\n" +
       "Bundle: " + bundle + "\n" +
       "Recipient: " + phone + "\n" +
       "Price: GH₵" + amount.toFixed(2) + "\n" +
-      "Payment method: " + payment + "\n" +
-      "Payment reference: " + (reference || "Not provided") + "\n" +
-      "Payment status: Pending verification\n\n" +
+      "Payment: " + payment + "\n" +
+      "Reference: " + (reference || "Not provided") + "\n" +
+      "Status: Pending verification\n\n" +
       "Please review this order.";
 
     messageBox.textContent =
-      "Order saved successfully! Opening WhatsApp...";
+      "Order saved successfully. Opening WhatsApp...";
 
     const whatsappURL =
       "https://wa.me/" +
@@ -440,20 +637,20 @@ if (error) {
 
     window.open(whatsappURL, "_blank");
 
-    document.getElementById("orderForm").reset();
+    form.reset();
 
   } catch (error) {
 
-    console.error("Order submission error:", error);
+    console.error(error);
 
     messageBox.textContent =
-      "Order could not be saved. Please try again. " +
-      (error.message || "");
+      "Order could not be saved. " +
+      (error.message || "Please try again.");
 
   } finally {
 
     submitButton.disabled = false;
-    submitButton.textContent = "Submit Order";
+    submitButton.textContent = "SUBMIT ORDER →";
 
   }
 
