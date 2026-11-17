@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#071426">
+<title>Maynard Data Site</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f3f6fb;color:#142033}
+header{background:#071426;color:white;padding:22px 18px;text-align:center}
+.logo{font-size:27px;font-weight:900;letter-spacing:1px}
+.logo span{color:#38bdf8}
+header p{color:#cbd5e1;font-size:13px}
+nav{display:flex;justify-content:center;gap:9px;padding:14px;flex-wrap:wrap}
+nav a{color:#142033;text-decoration:none;font-weight:bold;font-size:13px}
+.hero{background:linear-gradient(135deg,#071426,#123b70);color:white;padding:35px 20px;text-align:center}
+.hero h1{font-size:29px;margin:5px}
+.hero p{color:#dbeafe;line-height:1.6}
+.container{max-width:650px;margin:auto;padding:18px}
+.section-title{text-align:center;margin:25px 0 16px}
+.products{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.product{background:white;border-radius:13px;padding:19px 7px;text-align:center;box-shadow:0 3px 12px #0000000c}
+.product strong{display:block;margin-top:9px}
+.product span{font-size:27px}
+.form-card{background:white;border-radius:16px;padding:20px;box-shadow:0 5px 20px #0000000c;margin-top:18px}
+label{display:block;font-weight:bold;font-size:14px;margin:15px 0 7px}
+input,select{width:100%;padding:14px;border:1px solid #d5dce7;border-radius:9px;font-size:15px;background:white}
+button{width:100%;padding:15px;background:#0878df;color:white;border:0;border-radius:10px;font-weight:bold;font-size:16px;margin-top:20px}
+button:active{opacity:.8}
+.note{font-size:12px;color:#64748b;line-height:1.6}
+footer{background:#071426;color:#cbd5e1;text-align:center;padding:25px;margin-top:30px;font-size:13px}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="logo">MAYNARD <span>DATA</span></div>
+ <p>DATA • AIRTIME • MASHUP</p>
+</header>
+
+<nav>
+ <a href="#home">Home</a>
+ <a href="#products">Products</a>
+ <a href="#order">Place Order</a>
+</nav>
+
+<section class="hero" id="home">
+ <h1>Welcome to Maynard Data Site</h1>
+ <p>Buy your data, airtime and mashup easily.<br>
+ Fast service. Reliable support.</p>
+</section>
+
+<main class="container">
+
+<h2 class="section-title" id="products">Our Services</h2>
+
+<div class="products">
+ <div class="product"><span>📶</span><strong>Data</strong></div>
+ <div class="product"><span>📱</span><strong>Airtime</strong></div>
+ <div class="product"><span>🎁</span><strong>Mashup</strong></div>
+</div>
+
+<div class="form-card" id="order">
+ <h2>Place Your Order</h2>
+ <p class="note">Complete the form below to send your order to our team.</p>
+
+ <form id="orderForm">
+
+ <label for="network">Select Network</label>
+ <select id="network" required>
+  <option value="">Choose network</option>
+  <option>MTN</option>
+  <option>Telecel</option>
+  <option>AT</option>
+ </select>
+
+ <label for="service">Select Service</label>
+ <select id="service" required>
+  <option value="">Choose service</option>
+  <option>Data</option>
+  <option>Airtime</option>
+  <option>Mashup</option>
+ </select>
+
+ <label for="bundle">Bundle or Amount</label>
+ <input id="bundle" type="text"
+ placeholder="Example: 5GB or GH₵20 airtime" required>
+
+ <label for="phone">Recipient Phone Number</label>
+ <input id="phone" type="tel"
+ placeholder="Enter phone number" required>
+
+ <label for="customer">Your Name</label>
+ <input id="customer" type="text"
+ placeholder="Enter your name" required>
+
+ <label for="amount">Order Price (GH₵)</label>
+ <input id="amount" type="number" min="0.01"
+ step="0.01" placeholder="Enter price" required>
+
+ <button type="submit">Submit Order on WhatsApp</button>
+ </form>
+
+ <p class="note">
+ Your order will be sent to our administrator for payment verification and manual delivery. Submitting an order does not mean payment has been made.
+ </p>
+</div>
+</main>
+
+<footer>
+ <strong>MAYNARD DATA SITE</strong>
+ <p>Data | Airtime | Mashup</p>
+ <p>© 2026 Maynard Data Site. All rights reserved.</p>
+</footer>
+
+<script>
+document.getElementById("orderForm").addEventListener("submit",function(e){
+ e.preventDefault();
+
+ // Replace with your business WhatsApp number.
+ const ADMIN_WHATSAPP = "233XXXXXXXXX";
+
+ const network = document.getElementById("network").value;
+ const service = document.getElementById("service").value;
+ const bundle = document.getElementById("bundle").value;
+ const phone = document.getElementById("phone").value;
+ const customer = document.getElementById("customer").value;
+ const amount = document.getElementById("amount").value;
+
+ const message =
+ "MAYNARD DATA SITE - NEW ORDER\n\n"+
+ "Customer: "+customer+"\n"+
+ "Network: "+network+"\n"+
+ "Service: "+service+"\n"+
+ "Bundle: "+bundle+"\n"+
+ "Recipient: "+phone+"\n"+
+ "Price: GH₵"+amount+"\n\n"+
+ "Please confirm my order.";
+
+ if(ADMIN_WHATSAPP === "233592459293"){
+  alert("Website preview is ready. The administrator WhatsApp number must be added before orders can be sent.");
+  return;
+ }
+
+ window.open("https://wa.me/"+ADMIN_WHATSAPP+
+ "?text="+encodeURIComponent(message),"_blank");
+});
+</script>
+
+</body>
+</html>
