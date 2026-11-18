@@ -1,342 +1,542 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#071426">
+<meta name="description" content="Buy MTN, Telecel and AT data bundles with MAYNARD DATA.">
 
-<title>Maynard Data Site</title>
+<title>MAYNARD DATA | Your Connectivity Partner</title>
 
 <style>
 :root {
-  --navy: #071426;
-  --blue: #0878df;
-  --light-blue: #38bdf8;
-  --bg: #f2f6fc;
-  --white: #ffffff;
-  --text: #142033;
-  --muted: #64748b;
+  --navy:#071426;
+  --navy2:#0c2140;
+  --blue:#0878df;
+  --light:#38bdf8;
+  --bg:#f3f7fd;
+  --white:#fff;
+  --text:#142033;
+  --muted:#64748b;
+  --green:#07854a;
+  --border:#e2eaf4;
+  --shadow:0 12px 35px rgba(7,20,38,.07);
 }
 
-* {
-  box-sizing: border-box;
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
 }
 
-html {
-  scroll-behavior: smooth;
+a{text-decoration:none}
+
+header{
+  background:var(--navy);
+  color:white;
+  padding:17px 6%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
 }
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
+.logo{
+  font-size:23px;
+  font-weight:900;
+  letter-spacing:1px;
 }
 
-header {
-  background: var(--navy);
-  color: white;
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
+.logo span,.footer-logo span{color:var(--light)}
+
+.header-right{
+  color:#bfdbfe;
+  font-size:11px;
+  letter-spacing:1px;
 }
 
-.logo {
-  font-size: 23px;
-  font-weight: 900;
-  letter-spacing: 1px;
+nav{
+  background:white;
+  display:flex;
+  justify-content:center;
+  gap:28px;
+  padding:15px;
+  flex-wrap:wrap;
+  box-shadow:0 3px 15px #00000008;
+  position:sticky;
+  top:0;
+  z-index:10;
 }
 
-.logo span {
-  color: var(--light-blue);
+nav a{
+  color:var(--text);
+  font-size:12px;
+  font-weight:bold;
 }
 
-.header-tag {
-  font-size: 11px;
-  color: #bfdbfe;
-  letter-spacing: 1px;
-}
+nav a:hover{color:var(--blue)}
 
-nav {
-  background: white;
-  display: flex;
-  justify-content: center;
-  gap: 25px;
-  padding: 15px;
-  flex-wrap: wrap;
-  box-shadow: 0 3px 12px #00000008;
-}
-
-nav a {
-  color: var(--text);
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: bold;
-}
-
-nav a:hover {
-  color: var(--blue);
-}
-
-.hero {
+.hero{
   background:
-    radial-gradient(circle at top right,#1765b5 0%,transparent 40%),
-    linear-gradient(135deg,#071426,#123b70);
-  color: white;
-  padding: 65px 20px;
-  text-align: center;
+    radial-gradient(circle at 85% 15%,#1765b5 0%,transparent 35%),
+    radial-gradient(circle at 10% 100%,#123c70 0%,transparent 45%),
+    linear-gradient(135deg,#061326,#102b50);
+  color:white;
+  padding:75px 20px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
 }
 
-.hero-label {
-  display: inline-block;
-  background: #ffffff18;
-  border: 1px solid #ffffff30;
-  padding: 8px 14px;
-  border-radius: 30px;
-  color: #bae6fd;
-  font-size: 11px;
-  letter-spacing: 1px;
+.hero-label{
+  display:inline-block;
+  border:1px solid #ffffff40;
+  background:#ffffff13;
+  color:#bae6fd;
+  padding:9px 16px;
+  border-radius:30px;
+  font-size:11px;
+  letter-spacing:1.5px;
 }
 
-.hero h1 {
-  font-size: clamp(30px,6vw,45px);
-  margin: 20px 0 12px;
+.hero h1{
+  font-size:clamp(35px,7vw,58px);
+  line-height:1.12;
+  margin:22px 0 15px;
 }
 
-.hero h1 span {
-  color: var(--light-blue);
+.hero h1 span{color:var(--light)}
+
+.hero p{
+  color:#dbeafe;
+  max-width:520px;
+  margin:auto;
+  line-height:1.8;
+  font-size:14px;
 }
 
-.hero p {
-  color: #dbeafe;
-  line-height: 1.8;
-  max-width: 500px;
-  margin: auto;
+.hero-button{
+  display:inline-block;
+  background:linear-gradient(135deg,#1594f5,#0754b5);
+  color:white;
+  padding:15px 26px;
+  border-radius:12px;
+  font-weight:bold;
+  margin-top:28px;
+  box-shadow:0 8px 25px #0878df55;
 }
 
-.hero-button {
-  display: inline-block;
-  background: var(--blue);
-  color: white;
-  padding: 14px 25px;
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: bold;
-  margin-top: 25px;
+.hero-button:hover{transform:translateY(-2px)}
+
+.hero-stats{
+  display:flex;
+  justify-content:center;
+  gap:35px;
+  margin-top:42px;
+  flex-wrap:wrap;
 }
 
-.container {
-  max-width: 850px;
-  margin: auto;
-  padding: 22px 17px;
+.hero-stat strong{
+  display:block;
+  font-size:19px;
 }
 
-.section-heading {
-  text-align: center;
-  margin: 35px 0 20px;
+.hero-stat small{
+  color:#bfdbfe;
+  font-size:11px;
 }
 
-.section-heading h2 {
-  margin-bottom: 8px;
-  font-size: 25px;
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:25px 18px;
 }
 
-.section-heading p {
-  color: var(--muted);
-  font-size: 13px;
+.section-heading{
+  text-align:center;
+  margin:45px 0 25px;
 }
 
-.networks {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 12px;
+.section-heading h2{
+  font-size:27px;
+  margin:0 0 9px;
 }
 
-.network {
-  background: white;
-  border-radius: 15px;
-  padding: 20px 8px;
-  text-align: center;
-  box-shadow: 0 4px 15px #00000008;
-  border: 1px solid #e8edf5;
+.section-heading p{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.6;
 }
 
-.network strong {
-  display: block;
-  margin-top: 8px;
-  font-size: 14px;
+.networks,.services{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
 }
 
-.network-icon {
-  font-size: 27px;
+.network-card{
+  background:white;
+  padding:22px 12px;
+  border:1px solid var(--border);
+  border-radius:17px;
+  text-align:center;
+  box-shadow:var(--shadow);
+  transition:.2s;
 }
 
-.services {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 13px;
+.network-card:hover{
+  transform:translateY(-4px);
+  border-color:#8ccaff;
 }
 
-.service-card {
-  background: white;
-  border-radius: 16px;
-  padding: 23px 10px;
-  text-align: center;
-  box-shadow: 0 4px 16px #00000008;
-  border: 1px solid #e8edf5;
-  transition: transform .2s;
+.network-card .emoji{font-size:31px}
+.network-card strong{display:block;margin-top:9px}
+
+.network-card small{
+  color:var(--muted);
+  display:block;
+  margin-top:5px;
+  font-size:11px;
 }
 
-.service-card:hover {
-  transform: translateY(-4px);
+.shop-section{
+  margin-top:35px;
+  background:white;
+  padding:25px 20px;
+  border:1px solid var(--border);
+  border-radius:22px;
+  box-shadow:var(--shadow);
 }
 
-.service-card span {
-  font-size: 32px;
+.shop-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:12px;
 }
 
-.service-card h3 {
-  font-size: 14px;
-  margin-bottom: 5px;
+.shop-title h2{margin:0;font-size:22px}
+
+.shop-title p{
+  margin:7px 0 0;
+  color:var(--muted);
+  font-size:12px;
 }
 
-.service-card p {
-  color: var(--muted);
-  font-size: 11px;
+.filter-buttons{
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
+  margin:23px 0;
 }
 
-.order-card {
-  background: white;
-  border-radius: 20px;
-  padding: 25px 20px;
-  box-shadow: 0 8px 30px #0000000c;
-  margin-top: 25px;
-  border: 1px solid #e8edf5;
+.filter-btn{
+  width:auto;
+  margin:0;
+  padding:11px 19px;
+  border-radius:30px;
+  background:#edf4fc;
+  color:#31516f;
+  font-size:12px;
 }
 
-.order-card h2 {
-  margin-top: 0;
+.filter-btn.active{
+  background:var(--blue);
+  color:white;
 }
 
-.order-description {
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.6;
+.product-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
 }
 
-label {
-  display: block;
-  font-size: 13px;
-  font-weight: bold;
-  margin: 17px 0 8px;
+.product-card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:19px;
+  transition:.2s;
+  position:relative;
 }
 
-input, select {
-  width: 100%;
-  padding: 15px;
-  border: 1px solid #dbe3ef;
-  border-radius: 11px;
-  font-size: 14px;
-  background: #fbfdff;
-  outline: none;
-  color: var(--text);
+.product-card:hover{
+  transform:translateY(-4px);
+  box-shadow:var(--shadow);
+  border-color:#9bcfff;
 }
 
-input:focus, select:focus {
-  border-color: var(--blue);
-  box-shadow: 0 0 0 3px #0878df15;
+.product-network{
+  font-size:11px;
+  font-weight:bold;
+  color:var(--blue);
 }
 
-button {
-  width: 100%;
-  background: linear-gradient(135deg,#0878df,#0754b5);
-  color: white;
-  border: none;
-  border-radius: 11px;
-  padding: 16px;
-  font-size: 15px;
-  font-weight: bold;
-  margin-top: 23px;
-  cursor: pointer;
+.product-size{
+  font-size:31px;
+  font-weight:900;
+  margin:15px 0 5px;
 }
 
-button:disabled {
-  opacity: .6;
-  cursor: not-allowed;
+.product-price{
+  color:var(--green);
+  font-size:22px;
+  font-weight:900;
 }
 
-.payment-note {
-  background: #eff6ff;
-  border: 1px solid #dbeafe;
-  border-radius: 12px;
-  padding: 13px;
-  font-size: 12px;
-  color: #1e40af;
-  line-height: 1.6;
-  margin-top: 18px;
+.product-detail{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:8px;
 }
 
-#message {
-  font-size: 13px;
-  line-height: 1.6;
-  margin-top: 15px;
-  overflow-wrap: anywhere;
+.buy-product{
+  margin-top:17px;
+  padding:12px;
+  font-size:12px;
 }
 
-footer {
-  background: var(--navy);
-  color: white;
-  text-align: center;
-  padding: 35px 15px;
-  margin-top: 40px;
+button{
+  border:0;
+  cursor:pointer;
+  font-family:inherit;
 }
 
-footer p {
-  color: #cbd5e1;
-  font-size: 12px;
-  line-height: 1.8;
+.buy-product,.primary-button{
+  background:linear-gradient(135deg,#0878df,#0754b5);
+  color:white;
+  border-radius:10px;
+  font-weight:bold;
+  width:100%;
 }
 
-.footer-logo {
-  font-weight: 900;
-  font-size: 20px;
+.buy-product:hover,.primary-button:hover{
+  filter:brightness(1.08);
 }
 
-.footer-logo span {
-  color: var(--light-blue);
+.services{margin-bottom:30px}
+
+.service-card{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:25px 15px;
+  text-align:center;
+  box-shadow:var(--shadow);
 }
 
-@media(max-width:500px) {
-  header {
-    justify-content: center;
-    text-align: center;
-  }
+.service-card .emoji{font-size:35px}
+.service-card h3{font-size:16px;margin:12px 0 7px}
 
-  .hero {
-    padding: 48px 17px;
-  }
+.service-card p{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.6;
+}
 
-  .networks,
-  .services {
-    gap: 8px;
-  }
+.service-link{
+  display:inline-block;
+  color:var(--blue);
+  font-weight:bold;
+  font-size:12px;
+  margin-top:8px;
+}
 
-  .network,
-  .service-card {
-    padding: 17px 5px;
-  }
+.checkout-card{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:25px;
+  margin-top:35px;
+  box-shadow:var(--shadow);
+  scroll-margin-top:80px;
+}
 
-  .order-card {
-    padding: 20px 15px;
-  }
+.checkout-card h2{margin-top:0}
 
-  nav {
-    gap: 15px;
-  }
+.order-description{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.7;
+}
+
+.selected-product{
+  background:#eff6ff;
+  border:1px solid #bfdbfe;
+  border-radius:15px;
+  padding:17px;
+  margin:20px 0;
+}
+
+.selected-product small{
+  color:#31516f;
+  font-size:11px;
+}
+
+.selected-product strong{
+  display:block;
+  font-size:25px;
+  margin-top:8px;
+}
+
+.selected-price{
+  color:var(--green);
+  font-size:22px;
+  font-weight:900;
+  margin-top:5px;
+}
+
+label{
+  display:block;
+  font-weight:bold;
+  font-size:13px;
+  margin:17px 0 8px;
+}
+
+input{
+  width:100%;
+  padding:15px;
+  border:1px solid #dbe3ef;
+  border-radius:11px;
+  background:#fbfdff;
+  color:var(--text);
+  font-size:14px;
+  outline:none;
+}
+
+input:focus{
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px #0878df18;
+}
+
+.payment-box{
+  background:#eff6ff;
+  border:1px solid #bfdbfe;
+  border-radius:15px;
+  padding:19px;
+  margin-top:22px;
+  line-height:1.7;
+}
+
+.payment-box h3{margin-top:0}
+
+.payment-number{
+  color:#0754b5;
+  font-size:27px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.payment-amount{
+  color:var(--green);
+  font-size:25px;
+  font-weight:900;
+}
+
+.notice{
+  background:#fff8e7;
+  border:1px solid #f5dfa4;
+  color:#805b00;
+  padding:13px;
+  border-radius:11px;
+  font-size:12px;
+  line-height:1.7;
+  margin-top:15px;
+}
+
+.primary-button{
+  padding:16px;
+  font-size:14px;
+  margin-top:20px;
+}
+
+.primary-button:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+.secondary-button{
+  display:inline-block;
+  background:#eaf2fc;
+  color:#0754b5;
+  padding:13px 18px;
+  border-radius:10px;
+  font-size:12px;
+  font-weight:bold;
+  margin-top:15px;
+}
+
+.hidden{display:none!important}
+
+#message{
+  font-size:13px;
+  line-height:1.7;
+  margin-top:15px;
+  overflow-wrap:anywhere;
+}
+
+.success{
+  color:var(--green);
+  font-weight:bold;
+}
+
+.error{color:#c02626}
+
+footer{
+  background:var(--navy);
+  color:white;
+  text-align:center;
+  padding:40px 18px;
+  margin-top:55px;
+}
+
+.footer-logo{
+  font-size:23px;
+  font-weight:900;
+}
+
+footer p{
+  color:#cbd5e1;
+  font-size:12px;
+  line-height:1.8;
+}
+
+.footer-links{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  flex-wrap:wrap;
+  margin:20px 0;
+}
+
+.footer-links a{
+  color:#bfdbfe;
+  font-size:12px;
+}
+
+@media(max-width:750px){
+  .product-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+@media(max-width:520px){
+  header{padding:17px;flex-direction:column;text-align:center}
+  nav{gap:16px;padding:14px 8px}
+  nav a{font-size:10px}
+  .hero{padding:55px 17px}
+  .hero-stats{gap:20px}
+  .networks,.services{gap:9px}
+  .network-card{padding:17px 5px}
+  .shop-section{padding:18px 12px}
+  .product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+  .product-card{padding:13px}
+  .product-size{font-size:26px}
+  .product-price{font-size:19px}
+  .checkout-card{padding:19px 14px}
 }
 </style>
 </head>
@@ -345,28 +545,43 @@ footer p {
 
 <header>
   <div class="logo">MAYNARD <span>DATA</span></div>
-  <div class="header-tag">YOUR CONNECTIVITY PARTNER</div>
+  <div class="header-right">YOUR CONNECTIVITY PARTNER</div>
 </header>
 
 <nav>
   <a href="#home">HOME</a>
   <a href="#networks">NETWORKS</a>
+  <a href="#shop">DATA BUNDLES</a>
   <a href="#services">SERVICES</a>
-  <a href="#order">PLACE ORDER</a>
+  <a href="#checkout">CHECKOUT</a>
 </nav>
 
 <section class="hero" id="home">
-  <div class="hero-label">WELCOME TO MAYNARD DATA SITE</div>
+  <div class="hero-label">WELCOME TO MAYNARD DATA</div>
 
   <h1>Stay Connected.<br><span>Stay Ahead.</span></h1>
 
   <p>
-    Your destination for data bundles, airtime
-    and mashup services. Choose your network
-    and submit your order with ease.
+    Your convenient destination for mobile data bundles.
+    Choose your network, select your bundle and place your order.
   </p>
 
-  <a class="hero-button" href="#order">Place Your Order →</a>
+  <a href="#shop" class="hero-button">EXPLORE DATA BUNDLES →</a>
+
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <strong>3 Networks</strong>
+      <small>Choose your network</small>
+    </div>
+    <div class="hero-stat">
+      <strong>Easy Ordering</strong>
+      <small>Simple checkout</small>
+    </div>
+    <div class="hero-stat">
+      <strong>MoMo</strong>
+      <small>Payment instructions</small>
+    </div>
+  </div>
 </section>
 
 <main class="container">
@@ -374,169 +589,265 @@ footer p {
 <section id="networks">
   <div class="section-heading">
     <h2>Choose Your Network</h2>
-    <p>We support these three networks.</p>
+    <p>Select your preferred mobile network.</p>
   </div>
 
   <div class="networks">
-    <div class="network">
-      <div class="network-icon">🟡</div>
+    <a href="#shop" class="network-card" data-network="MTN">
+      <div class="emoji">🟡</div>
       <strong>MTN</strong>
-    </div>
+      <small>View MTN bundles</small>
+    </a>
 
-    <div class="network">
-      <div class="network-icon">🔴</div>
+    <a href="#shop" class="network-card" data-network="Telecel">
+      <div class="emoji">🔴</div>
       <strong>Telecel</strong>
-    </div>
+      <small>View Telecel bundles</small>
+    </a>
 
-    <div class="network">
-      <div class="network-icon">🔵</div>
+    <a href="#shop" class="network-card" data-network="AT">
+      <div class="emoji">🔵</div>
       <strong>AT</strong>
+      <small>View AT bundles</small>
+    </a>
+  </div>
+</section>
+
+<section id="shop" class="shop-section">
+
+  <div class="shop-title">
+    <div>
+      <h2>Explore Data Bundles</h2>
+      <p>Choose a bundle that suits your needs.</p>
     </div>
   </div>
+
+  <div class="filter-buttons">
+    <button class="filter-btn active" data-filter="All">All Bundles</button>
+    <button class="filter-btn" data-filter="MTN">🟡 MTN</button>
+    <button class="filter-btn" data-filter="Telecel">🔴 Telecel</button>
+    <button class="filter-btn" data-filter="AT">🔵 AT</button>
+  </div>
+
+  <div id="productGrid" class="product-grid"></div>
+
 </section>
 
 <section id="services">
   <div class="section-heading">
-    <h2>Our Services</h2>
-    <p>Everything you need in one place.</p>
+    <h2>More Services</h2>
+    <p>Explore other services from MAYNARD DATA.</p>
   </div>
 
   <div class="services">
+
     <div class="service-card">
-      <span>📶</span>
+      <div class="emoji">📶</div>
       <h3>Data Bundles</h3>
-      <p>Internet bundles</p>
+      <p>Browse MTN, Telecel and AT data packages.</p>
+      <a href="#shop" class="service-link">Shop bundles →</a>
     </div>
 
     <div class="service-card">
-      <span>📱</span>
+      <div class="emoji">📱</div>
       <h3>Airtime</h3>
-      <p>Mobile credit</p>
+      <p>Contact us for airtime availability and current pricing.</p>
+      <a href="#" class="service-link contact-link">Ask about airtime →</a>
     </div>
 
     <div class="service-card">
-      <span>🎁</span>
+      <div class="emoji">🎁</div>
       <h3>Mashup</h3>
-      <p>Special bundles</p>
+      <p>Contact us for available Mashup packages and prices.</p>
+      <a href="#" class="service-link contact-link">Ask about Mashup →</a>
     </div>
+
   </div>
 </section>
 
-<section id="order">
+<section id="checkout" class="checkout-card">
 
-  <div class="section-heading">
-    <h2>Place Your Order</h2>
-    <p>Complete the form to submit your request.</p>
+  <h2>Complete Your Order</h2>
+
+  <p class="order-description">
+    Select a bundle above. Your chosen network, bundle and price
+    will appear here automatically.
+  </p>
+
+  <div id="emptySelection" class="notice">
+    No bundle selected yet. Choose a product and tap its Buy button.
   </div>
 
-  <div class="order-card">
+  <div id="selectedArea" class="hidden">
 
-    <h2>Customer Order Form</h2>
+    <div class="selected-product">
+      <small id="selectedNetwork">NETWORK</small>
+      <strong id="selectedBundle">1GB</strong>
+      <div class="selected-price" id="selectedPrice">GH₵5.50</div>
+    </div>
 
-    <p class="order-description">
-      Enter the correct details below.
-      Your order will be sent to our administrator.
-    </p>
+    <label for="phone">Recipient Phone Number</label>
+    <input
+      id="phone"
+      type="tel"
+      inputmode="numeric"
+      maxlength="10"
+      placeholder="0XXXXXXXXX"
+      autocomplete="tel"
+    >
 
-    <form id="orderForm">
+    <button type="button" id="continueButton" class="primary-button">
+      CONTINUE TO PAYMENT →
+    </button>
 
-      <label for="customer">Customer Name</label>
-      <input id="customer" type="text"
-        placeholder="Enter your full name" required>
+    <div id="paymentSection" class="hidden">
 
-      <label for="network">Select Network</label>
-      <select id="network" required>
-        <option value="">Choose network</option>
-        <option value="MTN">MTN</option>
-        <option value="Telecel">Telecel</option>
-        <option value="AT">AT</option>
-      </select>
+      <div class="payment-box">
+        <h3>Complete Your Payment</h3>
 
-      <label for="service">Select Service</label>
-      <select id="service" required>
-        <option value="">Choose service</option>
-        <option value="Data">Data</option>
-        <option value="Airtime">Airtime</option>
-        <option value="Mashup">Mashup</option>
-      </select>
+        <p>Send the exact amount using MTN Mobile Money.</p>
 
-      <label for="bundle">Bundle or Amount</label>
-      <input id="bundle" type="text"
-        placeholder="Example: 5GB or GH₵20 airtime" required>
+        <p><strong>Payment network:</strong> MTN MoMo</p>
+        <p><strong>Payment number:</strong></p>
+        <div class="payment-number">0592459293</div>
 
-      <label for="phone">Recipient Phone Number</label>
-      <input id="phone" type="tel"
-        placeholder="Enter recipient number" required>
+        <p><strong>Amount to pay:</strong></p>
+        <div class="payment-amount" id="paymentAmount">GH₵5.50</div>
 
-      <label for="amount">Order Price (GH₵)</label>
-      <input id="amount" type="number"
-        min="0.01" step="0.01"
-        placeholder="Enter price" required>
+        <p><strong>Payment recipient:</strong> MAYNARD DATA payment number</p>
 
-      <label for="payment">Payment Method</label>
-      <select id="payment" required>
-        <option value="">Choose payment method</option>
-        <option value="MTN MoMo">MTN MoMo</option>
-        <option value="Telecel Cash">Telecel Cash</option>
-        <option value="AT Money">AT Money</option>
-      </select>
+        <div class="notice">
+          Verify the recipient name displayed by MoMo before confirming.
+          Never share your MoMo PIN or one-time password with anyone.
+        </div>
+      </div>
 
-      <label for="reference">Payment Reference</label>
-      <input id="reference" type="text"
-        placeholder="Optional payment reference">
+      <form id="orderForm">
 
-      <button id="submitButton" type="submit">
-        SUBMIT ORDER →
-      </button>
+        <label for="customer">Your Name</label>
+        <input
+          id="customer"
+          type="text"
+          placeholder="Enter your name"
+          required
+        >
 
-    </form>
+        <label for="reference">MoMo Transaction Reference</label>
+        <input
+          id="reference"
+          type="text"
+          placeholder="Enter your payment reference"
+          required
+        >
 
-    <div id="message" role="status" aria-live="polite"></div>
+        <button id="submitButton" class="primary-button" type="submit">
+          SUBMIT ORDER FOR VERIFICATION
+        </button>
 
-    <div class="payment-note">
-      <strong>Payment information</strong><br>
-      Orders are submitted for administrator review.
-      Payment must be verified before delivery.
-      Submitting an order does not confirm payment.
+      </form>
+
     </div>
 
   </div>
+
+  <div id="message" role="status" aria-live="polite"></div>
+
+  <a id="whatsappLink" class="secondary-button hidden"
+     href="#" target="_blank" rel="noopener noreferrer">
+    NOTIFY US ON WHATSAPP
+  </a>
+
+  <div class="notice">
+    Payment references are not automatic proof of payment.
+    Orders remain pending until payment is manually verified.
+    Data delivery is handled manually after verification.
+  </div>
+
 </section>
 
 </main>
 
 <footer>
-  <div class="footer-logo">
-    MAYNARD <span>DATA</span>
-  </div>
+  <div class="footer-logo">MAYNARD <span>DATA</span></div>
 
   <p>DATA • AIRTIME • MASHUP</p>
 
+  <div class="footer-links">
+    <a href="#home">Home</a>
+    <a href="#shop">Bundles</a>
+    <a href="#services">Services</a>
+    <a href="#checkout">Checkout</a>
+  </div>
+
   <p>
     Reliable connectivity. Convenient ordering.<br>
-    © 2026 Maynard Data Site. All rights reserved.
+    © 2026 MAYNARD DATA. All rights reserved.
   </p>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
+// ======================================
+// MAYNARD DATA SETTINGS
+// ======================================
 
-// SUPABASE SETTINGS
 const SUPABASE_URL =
   "https://jzdaqabewxizfdlctphm.supabase.co";
 
 const SUPABASE_PUBLISHABLE_KEY =
-  "PASTE_YOUR_SUPABASE_PUBLISHABLE_KEY_HERE";
+  "sb_publishable_1tHqPL1WOm2BLOObReSuhw_NkrEzVq4";
 
 const ADMIN_WHATSAPP = "233592459293";
+
+// ======================================
+// PRODUCT PRICES
+// ======================================
+
+const products = [
+  // MTN
+  {network:"MTN",bundle:"1GB",amount:5.50},
+  {network:"MTN",bundle:"2GB",amount:11.00},
+  {network:"MTN",bundle:"3GB",amount:16.50},
+  {network:"MTN",bundle:"4GB",amount:22.00},
+  {network:"MTN",bundle:"5GB",amount:27.50},
+  {network:"MTN",bundle:"6GB",amount:33.00},
+  {network:"MTN",bundle:"7GB",amount:38.50},
+  {network:"MTN",bundle:"8GB",amount:44.00},
+  {network:"MTN",bundle:"9GB",amount:49.50},
+  {network:"MTN",bundle:"10GB",amount:55.00},
+
+  // TELECEL
+  {network:"Telecel",bundle:"5GB",amount:25.00},
+  {network:"Telecel",bundle:"10GB",amount:46.00},
+  {network:"Telecel",bundle:"15GB",amount:69.00},
+  {network:"Telecel",bundle:"20GB",amount:90.00},
+  {network:"Telecel",bundle:"30GB",amount:130.00},
+  {network:"Telecel",bundle:"40GB",amount:175.00},
+  {network:"Telecel",bundle:"50GB",amount:205.00},
+
+  // AT
+  {network:"AT",bundle:"1GB",amount:6.50},
+  {network:"AT",bundle:"2GB",amount:11.50},
+  {network:"AT",bundle:"3GB",amount:16.50},
+  {network:"AT",bundle:"4GB",amount:21.50},
+  {network:"AT",bundle:"5GB",amount:26.50},
+  {network:"AT",bundle:"6GB",amount:31.50},
+  {network:"AT",bundle:"7GB",amount:36.50},
+  {network:"AT",bundle:"8GB",amount:41.50},
+  {network:"AT",bundle:"9GB",amount:46.50},
+  {network:"AT",bundle:"10GB",amount:52.50}
+];
+
+// ======================================
+// DATABASE CONNECTION
+// ======================================
 
 let supabaseClient = null;
 
 if (
   window.supabase &&
-  SUPABASE_PUBLISHABLE_KEY !==
-  "sb_publishable_1tHqPL1WOm2BLOObReSuhw_NkrEzVq4"
+  SUPABASE_PUBLISHABLE_KEY.startsWith("sb_publishable_")
 ) {
   supabaseClient = window.supabase.createClient(
     SUPABASE_URL,
@@ -544,63 +855,277 @@ if (
   );
 }
 
-const form = document.getElementById("orderForm");
-const messageBox = document.getElementById("message");
+// ======================================
+// PAGE ELEMENTS
+// ======================================
+
+const productGrid = document.getElementById("productGrid");
+const filterButtons = document.querySelectorAll(".filter-btn");
+
+const emptySelection = document.getElementById("emptySelection");
+const selectedArea = document.getElementById("selectedArea");
+const selectedNetwork = document.getElementById("selectedNetwork");
+const selectedBundle = document.getElementById("selectedBundle");
+const selectedPrice = document.getElementById("selectedPrice");
+
+const phoneInput = document.getElementById("phone");
+const continueButton = document.getElementById("continueButton");
+
+const paymentSection = document.getElementById("paymentSection");
+const paymentAmount = document.getElementById("paymentAmount");
+
+const orderForm = document.getElementById("orderForm");
 const submitButton = document.getElementById("submitButton");
 
-form.addEventListener("submit", async function(event) {
+const messageBox = document.getElementById("message");
+const whatsappLink = document.getElementById("whatsappLink");
+
+let selectedProduct = null;
+
+// ======================================
+// FORMAT PRICE
+// ======================================
+
+function formatPrice(amount) {
+  return "GH₵" + Number(amount).toFixed(2);
+}
+
+// ======================================
+// DISPLAY PRODUCTS
+// ======================================
+
+function renderProducts(filter = "All") {
+
+  productGrid.innerHTML = "";
+
+  const filtered = products.filter(product =>
+    filter === "All" || product.network === filter
+  );
+
+  filtered.forEach(product => {
+
+    const card = document.createElement("div");
+    card.className = "product-card";
+
+    const emoji =
+      product.network === "MTN" ? "🟡" :
+      product.network === "Telecel" ? "🔴" : "🔵";
+
+    const networkLabel = document.createElement("div");
+    networkLabel.className = "product-network";
+    networkLabel.textContent = emoji + " " + product.network;
+
+    const size = document.createElement("div");
+    size.className = "product-size";
+    size.textContent = product.bundle;
+
+    const price = document.createElement("div");
+    price.className = "product-price";
+    price.textContent = formatPrice(product.amount);
+
+    const detail = document.createElement("div");
+    detail.className = "product-detail";
+    detail.textContent = "Data bundle";
+
+    const buy = document.createElement("button");
+    buy.className = "buy-product";
+    buy.type = "button";
+    buy.textContent = "BUY " + formatPrice(product.amount) + " →";
+
+    buy.addEventListener("click", () => {
+      selectProduct(product);
+    });
+
+    card.append(
+      networkLabel,
+      size,
+      price,
+      detail,
+      buy
+    );
+
+    productGrid.appendChild(card);
+  });
+
+}
+
+// ======================================
+// FILTER BUTTONS
+// ======================================
+
+filterButtons.forEach(button => {
+
+  button.addEventListener("click", () => {
+
+    filterButtons.forEach(item =>
+      item.classList.remove("active")
+    );
+
+    button.classList.add("active");
+
+    renderProducts(button.dataset.filter);
+
+  });
+
+});
+
+// ======================================
+// NETWORK SHORTCUT CARDS
+// ======================================
+
+document.querySelectorAll(".network-card").forEach(card => {
+
+  card.addEventListener("click", () => {
+
+    const network = card.dataset.network;
+
+    filterButtons.forEach(button => {
+      button.classList.toggle(
+        "active",
+        button.dataset.filter === network
+      );
+    });
+
+    renderProducts(network);
+
+  });
+
+});
+
+// ======================================
+// SELECT PRODUCT
+// ======================================
+
+function selectProduct(product) {
+
+  selectedProduct = product;
+
+  selectedNetwork.textContent =
+    product.network + " DATA BUNDLE";
+
+  selectedBundle.textContent =
+    product.bundle;
+
+  selectedPrice.textContent =
+    formatPrice(product.amount);
+
+  paymentAmount.textContent =
+    formatPrice(product.amount);
+
+  emptySelection.classList.add("hidden");
+  selectedArea.classList.remove("hidden");
+
+  paymentSection.classList.add("hidden");
+
+  messageBox.textContent = "";
+  messageBox.className = "";
+
+  whatsappLink.classList.add("hidden");
+
+  document.getElementById("checkout").scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
+
+}
+
+// ======================================
+// CONTINUE TO PAYMENT
+// ======================================
+
+continueButton.addEventListener("click", () => {
+
+  if (!selectedProduct) {
+    messageBox.textContent =
+      "Please select a bundle first.";
+    messageBox.className = "error";
+    return;
+  }
+
+  const phone = phoneInput.value.trim();
+
+  if (!/^0\d{9}$/.test(phone)) {
+    messageBox.textContent =
+      "Enter a valid 10-digit Ghana phone number.";
+    messageBox.className = "error";
+    phoneInput.focus();
+    return;
+  }
+
+  messageBox.textContent = "";
+  paymentSection.classList.remove("hidden");
+
+  paymentSection.scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
+
+});
+
+// ======================================
+// SUBMIT ORDER
+// ======================================
+
+orderForm.addEventListener("submit", async event => {
 
   event.preventDefault();
 
   if (!supabaseClient) {
     messageBox.textContent =
-      "Connection not ready. Check your Supabase Publishable key.";
+      "Database connection is not ready. Please check your Supabase settings.";
+    messageBox.className = "error";
+    return;
+  }
+
+  if (!selectedProduct) {
+    messageBox.textContent =
+      "Please select a bundle.";
+    messageBox.className = "error";
     return;
   }
 
   const customer =
     document.getElementById("customer").value.trim();
 
-  const network =
-    document.getElementById("network").value;
-
-  const service =
-    document.getElementById("service").value;
-
-  const bundle =
-    document.getElementById("bundle").value.trim();
-
-  const phone =
-    document.getElementById("phone").value.trim();
-
-  const amount =
-    Number(document.getElementById("amount").value);
-
-  const payment =
-    document.getElementById("payment").value;
+  const phone = phoneInput.value.trim();
 
   const reference =
     document.getElementById("reference").value.trim();
 
-  if (!Number.isFinite(amount) || amount <= 0) {
-    messageBox.textContent = "Enter a valid order price.";
+  if (!/^0\d{9}$/.test(phone)) {
+    messageBox.textContent =
+      "Please enter a valid recipient phone number.";
+    messageBox.className = "error";
+    return;
+  }
+
+  if (!customer || !reference) {
+    messageBox.textContent =
+      "Please complete all required fields.";
+    messageBox.className = "error";
     return;
   }
 
   submitButton.disabled = true;
-  submitButton.textContent = "SUBMITTING...";
+  submitButton.textContent = "SUBMITTING ORDER...";
+
   messageBox.textContent = "";
+  messageBox.className = "";
+
+  whatsappLink.classList.add("hidden");
 
   const order = {
     customer_name: customer,
     customer_phone: phone,
     recipient_phone: phone,
-    network: network,
-    service: service,
-    bundle: bundle,
-    amount: amount,
-    payment_method: payment,
-    payment_reference: reference || null
+    network: selectedProduct.network,
+    service: "Data",
+    bundle: selectedProduct.bundle,
+    amount: selectedProduct.amount,
+    payment_method: "MTN MoMo",
+    payment_reference: reference,
+    payment_status: "pending",
+    order_status: "pending"
   };
 
   try {
@@ -614,47 +1139,82 @@ form.addEventListener("submit", async function(event) {
     }
 
     const whatsappMessage =
-      "MAYNARD DATA SITE - NEW ORDER\n\n" +
+      "MAYNARD DATA - NEW ORDER\n\n" +
       "Customer: " + customer + "\n" +
-      "Network: " + network + "\n" +
-      "Service: " + service + "\n" +
-      "Bundle: " + bundle + "\n" +
+      "Network: " + selectedProduct.network + "\n" +
+      "Service: Data\n" +
+      "Bundle: " + selectedProduct.bundle + "\n" +
       "Recipient: " + phone + "\n" +
-      "Price: GH₵" + amount.toFixed(2) + "\n" +
-      "Payment: " + payment + "\n" +
-      "Reference: " + (reference || "Not provided") + "\n" +
-      "Status: Pending verification\n\n" +
-      "Please review this order.";
+      "Price: " + formatPrice(selectedProduct.amount) + "\n" +
+      "Payment: MTN MoMo\n" +
+      "Reference: " + reference + "\n" +
+      "Payment status: PENDING VERIFICATION\n" +
+      "Delivery status: PENDING\n\n" +
+      "Please verify payment before delivering data.";
 
-    messageBox.textContent =
-      "Order saved successfully. Opening WhatsApp...";
-
-    const whatsappURL =
+    whatsappLink.href =
       "https://wa.me/" +
       ADMIN_WHATSAPP +
       "?text=" +
       encodeURIComponent(whatsappMessage);
 
-    window.open(whatsappURL, "_blank");
+    messageBox.textContent =
+      "Your order was submitted successfully. Your payment is awaiting manual verification.";
 
-    form.reset();
+    messageBox.className = "success";
+
+    whatsappLink.classList.remove("hidden");
+
+    orderForm.reset();
+    phoneInput.value = "";
+
+    paymentSection.classList.add("hidden");
 
   } catch (error) {
 
-    console.error(error);
+    console.error("Order submission error:", error);
 
     messageBox.textContent =
-      "Order could not be saved. " +
+      "Order could not be submitted: " +
       (error.message || "Please try again.");
+
+    messageBox.className = "error";
 
   } finally {
 
     submitButton.disabled = false;
-    submitButton.textContent = "SUBMIT ORDER →";
+    submitButton.textContent =
+      "SUBMIT ORDER FOR VERIFICATION";
 
   }
 
 });
+
+// ======================================
+// CONTACT LINKS
+// ======================================
+
+document.querySelectorAll(".contact-link").forEach(link => {
+
+  const message =
+    "Hello MAYNARD DATA, I would like to ask about your services and current prices.";
+
+  link.href =
+    "https://wa.me/" +
+    ADMIN_WHATSAPP +
+    "?text=" +
+    encodeURIComponent(message);
+
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+
+});
+
+// ======================================
+// INITIALIZE
+// ======================================
+
+renderProducts("All");
 
 </script>
 
