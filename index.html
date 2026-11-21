@@ -814,11 +814,15 @@ const SUPABASE_PUBLISHABLE_KEY =
 
 const ADMIN_WHATSAPP = "233592459293";
 
+// VERCEL API
+// Shared by GitHub Pages and Vercel websites.
+const PACKAGE_API_URL =
+  "https://maynard-data-site.vercel.app/api/packages";
+
 // ======================================
 // APPROVED RETAIL PRICES
 // ======================================
 
-// MTN
 const mtnPrices = {
   "1GB":5.50,
   "2GB":11.00,
@@ -832,7 +836,6 @@ const mtnPrices = {
   "10GB":55.00
 };
 
-// TELECEL
 const telecelPrices = {
   "5GB":25.00,
   "10GB":46.00,
@@ -843,7 +846,6 @@ const telecelPrices = {
   "50GB":205.00
 };
 
-// AT-iSHARE
 const iSharePrices = {
   "1GB":6.50,
   "2GB":11.50,
@@ -856,8 +858,6 @@ const iSharePrices = {
   "10GB":52.50
 };
 
-// AT-BIGTIME
-// 30% markup, rounded up to nearest GH₵0.50
 const bigTimePrices = {
   "20GB":88.50,
   "25GB":95.00,
@@ -869,13 +869,7 @@ const bigTimePrices = {
   "250GB":533.00
 };
 
-// Products are loaded from the supplier catalogue.
 let products = [];
-
-// ======================================
-// DATABASE CONNECTION
-// ======================================
-
 let supabaseClient = null;
 
 if (
@@ -928,23 +922,10 @@ function formatPrice(amount) {
 // ======================================
 
 function getRetailPrice(network, bundle) {
-
-  if (network === "MTN") {
-    return mtnPrices[bundle] ?? null;
-  }
-
-  if (network === "Telecel") {
-    return telecelPrices[bundle] ?? null;
-  }
-
-  if (network === "AT-iShare") {
-    return iSharePrices[bundle] ?? null;
-  }
-
-  if (network === "AT-BigTime") {
-    return bigTimePrices[bundle] ?? null;
-  }
-
+  if (network === "MTN") return mtnPrices[bundle] ?? null;
+  if (network === "Telecel") return telecelPrices[bundle] ?? null;
+  if (network === "AT-iShare") return iSharePrices[bundle] ?? null;
+  if (network === "AT-BigTime") return bigTimePrices[bundle] ?? null;
   return null;
 }
 
@@ -953,21 +934,23 @@ function getRetailPrice(network, bundle) {
 // ======================================
 
 async function loadSupplierPackages() {
-
   productGrid.innerHTML =
     "<p>Loading available data bundles...</p>";
 
   try {
-
-    const response = await fetch("/api/packages", {
+    const response = await fetch(PACKAGE_API_URL, {
       method: "GET",
+      mode: "cors",
+      cache: "no-store",
       headers: {
         "Accept": "application/json"
       }
     });
 
     if (!response.ok) {
-      throw new Error("Could not load supplier packages.");
+      throw new Error(
+        "Package API returned HTTP " + response.status
+      );
     }
 
     const result = await response.json();
@@ -976,7 +959,7 @@ async function loadSupplierPackages() {
       !result.success ||
       !Array.isArray(result.data?.packages)
     ) {
-      throw new Error("The supplier returned an invalid package list.");
+      throw new Error("Invalid supplier package list.");
     }
 
     const allowedNetworks = [
@@ -987,30 +970,23 @@ async function loadSupplierPackages() {
     ];
 
     products = result.data.packages
-
       .filter(item =>
         item &&
         allowedNetworks.includes(item.network)
       )
-
       .map(item => {
-
         const bundle =
           String(item.size || "").trim().toUpperCase();
 
         return {
           network: item.network,
-          bundle: bundle,
+          bundle,
           amount: getRetailPrice(item.network, bundle),
           volume: Number(item.volume_gb) || null
         };
-
       })
-
       .filter(item => item.bundle)
-
       .sort((a, b) => {
-
         const order = {
           "MTN":1,
           "Telecel":2,
@@ -1023,20 +999,16 @@ async function loadSupplierPackages() {
         }
 
         return (a.volume || 0) - (b.volume || 0);
-
       });
 
     renderProducts("All");
 
   } catch (error) {
-
     console.error("Package loading error:", error);
 
     productGrid.innerHTML =
       "<p class='error'>Unable to load bundles right now. Please refresh the page and try again.</p>";
-
   }
-
 }
 
 // ======================================
@@ -1044,36 +1016,19 @@ async function loadSupplierPackages() {
 // ======================================
 
 function renderProducts(filter = "All") {
-
   productGrid.innerHTML = "";
 
-  const filtered = products.filter(product => {
-
-    if (filter === "All") {
-      return true;
-    }
-
-    if (filter === "AT") {
-      return (
-        product.network === "AT-iShare" ||
-        product.network === "AT-BigTime"
-      );
-    }
-
-    return product.network === filter;
-
-  });
+  const filtered = products.filter(product =>
+    filter === "All" || product.network === filter
+  );
 
   if (!filtered.length) {
-
     productGrid.innerHTML =
       "<p>No bundles are currently available for this network.</p>";
-
     return;
   }
 
   filtered.forEach(product => {
-
     const card = document.createElement("div");
     card.className = "product-card";
 
@@ -1083,8 +1038,7 @@ function renderProducts(filter = "All") {
 
     const networkLabel = document.createElement("div");
     networkLabel.className = "product-network";
-    networkLabel.textContent =
-      emoji + " " + product.network;
+    networkLabel.textContent = emoji + " " + product.network;
 
     const size = document.createElement("div");
     size.className = "product-size";
@@ -1102,54 +1056,35 @@ function renderProducts(filter = "All") {
     buy.type = "button";
 
     if (product.amount === null) {
-
       price.textContent = "Contact us";
       price.style.fontSize = "17px";
-
       buy.textContent = "ASK FOR PRICE →";
 
       buy.addEventListener("click", () => {
-
         const inquiry =
           "Hello MAYNARD DATA, please give me the selling price for " +
           product.network + " " + product.bundle + ".";
 
         window.open(
-          "https://wa.me/" +
-          ADMIN_WHATSAPP +
-          "?text=" +
-          encodeURIComponent(inquiry),
+          "https://wa.me/" + ADMIN_WHATSAPP +
+          "?text=" + encodeURIComponent(inquiry),
           "_blank",
           "noopener"
         );
-
       });
 
     } else {
-
       price.textContent = formatPrice(product.amount);
-
-      buy.textContent =
-        "BUY " + formatPrice(product.amount) + " →";
+      buy.textContent = "BUY " + formatPrice(product.amount) + " →";
 
       buy.addEventListener("click", () => {
         selectProduct(product);
       });
-
     }
 
-    card.append(
-      networkLabel,
-      size,
-      price,
-      detail,
-      buy
-    );
-
+    card.append(networkLabel, size, price, detail, buy);
     productGrid.appendChild(card);
-
   });
-
 }
 
 // ======================================
@@ -1157,19 +1092,14 @@ function renderProducts(filter = "All") {
 // ======================================
 
 filterButtons.forEach(button => {
-
   button.addEventListener("click", () => {
-
     filterButtons.forEach(item =>
       item.classList.remove("active")
     );
 
     button.classList.add("active");
-
     renderProducts(button.dataset.filter);
-
   });
-
 });
 
 // ======================================
@@ -1177,24 +1107,18 @@ filterButtons.forEach(button => {
 // ======================================
 
 document.querySelectorAll(".network-card").forEach(card => {
-
   card.addEventListener("click", () => {
-
     const network = card.dataset.network;
 
     filterButtons.forEach(button => {
-
       button.classList.toggle(
         "active",
         button.dataset.filter === network
       );
-
     });
 
     renderProducts(network);
-
   });
-
 });
 
 // ======================================
@@ -1202,24 +1126,16 @@ document.querySelectorAll(".network-card").forEach(card => {
 // ======================================
 
 function selectProduct(product) {
-
-  if (product.amount === null) {
-    return;
-  }
+  if (product.amount === null) return;
 
   selectedProduct = product;
 
   selectedNetwork.textContent =
     product.network + " DATA BUNDLE";
 
-  selectedBundle.textContent =
-    product.bundle;
-
-  selectedPrice.textContent =
-    formatPrice(product.amount);
-
-  paymentAmount.textContent =
-    formatPrice(product.amount);
+  selectedBundle.textContent = product.bundle;
+  selectedPrice.textContent = formatPrice(product.amount);
+  paymentAmount.textContent = formatPrice(product.amount);
 
   emptySelection.classList.add("hidden");
   selectedArea.classList.remove("hidden");
@@ -1235,7 +1151,6 @@ function selectProduct(product) {
     behavior:"smooth",
     block:"start"
   });
-
 }
 
 // ======================================
@@ -1243,28 +1158,19 @@ function selectProduct(product) {
 // ======================================
 
 continueButton.addEventListener("click", () => {
-
   if (!selectedProduct) {
-
-    messageBox.textContent =
-      "Please select a bundle first.";
-
+    messageBox.textContent = "Please select a bundle first.";
     messageBox.className = "error";
-
     return;
   }
 
   const phone = phoneInput.value.trim();
 
   if (!/^0\d{9}$/.test(phone)) {
-
     messageBox.textContent =
       "Enter a valid 10-digit Ghana phone number.";
-
     messageBox.className = "error";
-
     phoneInput.focus();
-
     return;
   }
 
@@ -1275,7 +1181,6 @@ continueButton.addEventListener("click", () => {
     behavior:"smooth",
     block:"start"
   });
-
 });
 
 // ======================================
@@ -1283,26 +1188,19 @@ continueButton.addEventListener("click", () => {
 // ======================================
 
 orderForm.addEventListener("submit", async event => {
-
   event.preventDefault();
 
   if (!supabaseClient) {
-
     messageBox.textContent =
-      "Database connection is not ready. Please check your Supabase settings.";
-
+      "Database connection is not ready. Please check your settings.";
     messageBox.className = "error";
-
     return;
   }
 
   if (!selectedProduct || selectedProduct.amount === null) {
-
     messageBox.textContent =
       "Please select a bundle with an approved price.";
-
     messageBox.className = "error";
-
     return;
   }
 
@@ -1315,22 +1213,16 @@ orderForm.addEventListener("submit", async event => {
     document.getElementById("reference").value.trim();
 
   if (!/^0\d{9}$/.test(phone)) {
-
     messageBox.textContent =
       "Please enter a valid recipient phone number.";
-
     messageBox.className = "error";
-
     return;
   }
 
   if (!customer || !reference) {
-
     messageBox.textContent =
       "Please complete all required fields.";
-
     messageBox.className = "error";
-
     return;
   }
 
@@ -1339,7 +1231,6 @@ orderForm.addEventListener("submit", async event => {
 
   messageBox.textContent = "";
   messageBox.className = "";
-
   whatsappLink.classList.add("hidden");
 
   const order = {
@@ -1357,14 +1248,11 @@ orderForm.addEventListener("submit", async event => {
   };
 
   try {
-
     const { error } = await supabaseClient
       .from("orders")
       .insert([order]);
 
-    if (error) {
-      throw error;
-    }
+    if (error) throw error;
 
     const whatsappMessage =
       "MAYNARD DATA - NEW ORDER\n\n" +
@@ -1381,10 +1269,8 @@ orderForm.addEventListener("submit", async event => {
       "Please verify payment before delivering data.";
 
     whatsappLink.href =
-      "https://wa.me/" +
-      ADMIN_WHATSAPP +
-      "?text=" +
-      encodeURIComponent(whatsappMessage);
+      "https://wa.me/" + ADMIN_WHATSAPP +
+      "?text=" + encodeURIComponent(whatsappMessage);
 
     messageBox.textContent =
       "Your order was submitted successfully. Your payment is awaiting manual verification.";
@@ -1395,11 +1281,9 @@ orderForm.addEventListener("submit", async event => {
 
     orderForm.reset();
     phoneInput.value = "";
-
     paymentSection.classList.add("hidden");
 
   } catch (error) {
-
     console.error("Order submission error:", error);
 
     messageBox.textContent =
@@ -1409,14 +1293,10 @@ orderForm.addEventListener("submit", async event => {
     messageBox.className = "error";
 
   } finally {
-
     submitButton.disabled = false;
-
     submitButton.textContent =
       "SUBMIT ORDER FOR VERIFICATION";
-
   }
-
 });
 
 // ======================================
@@ -1424,19 +1304,15 @@ orderForm.addEventListener("submit", async event => {
 // ======================================
 
 document.querySelectorAll(".contact-link").forEach(link => {
-
   const message =
     "Hello MAYNARD DATA, I would like to ask about your services and current prices.";
 
   link.href =
-    "https://wa.me/" +
-    ADMIN_WHATSAPP +
-    "?text=" +
-    encodeURIComponent(message);
+    "https://wa.me/" + ADMIN_WHATSAPP +
+    "?text=" + encodeURIComponent(message);
 
   link.target = "_blank";
   link.rel = "noopener noreferrer";
-
 });
 
 // ======================================
