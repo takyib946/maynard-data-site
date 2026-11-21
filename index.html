@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#071426">
-<meta name="description" content="Buy MTN, Telecel and AT data bundles with MAYNARD DATA.">
+<meta name="description" content="Buy MTN, Telecel, AT-iShare and AT-BigTime data bundles with MAYNARD DATA.">
 
 <title>MAYNARD DATA | Your Connectivity Partner</title>
 
@@ -174,7 +175,7 @@ nav a:hover{color:var(--blue)}
 
 .networks,.services{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+  grid-template-columns:repeat(4,1fr);
   gap:15px;
 }
 
@@ -186,6 +187,7 @@ nav a:hover{color:var(--blue)}
   text-align:center;
   box-shadow:var(--shadow);
   transition:.2s;
+  color:var(--text);
 }
 
 .network-card:hover{
@@ -319,7 +321,7 @@ button{
   filter:brightness(1.08);
 }
 
-.services{margin-bottom:30px}
+.services{margin-bottom:30px;grid-template-columns:repeat(3,1fr)}
 
 .service-card{
   background:white;
@@ -521,6 +523,7 @@ footer p{
 
 @media(max-width:750px){
   .product-grid{grid-template-columns:repeat(2,1fr)}
+  .networks{grid-template-columns:repeat(2,1fr)}
 }
 
 @media(max-width:520px){
@@ -529,7 +532,7 @@ footer p{
   nav a{font-size:10px}
   .hero{padding:55px 17px}
   .hero-stats{gap:20px}
-  .networks,.services{gap:9px}
+  .networks,.services{grid-template-columns:repeat(2,1fr);gap:9px}
   .network-card{padding:17px 5px}
   .shop-section{padding:18px 12px}
   .product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
@@ -570,7 +573,7 @@ footer p{
 
   <div class="hero-stats">
     <div class="hero-stat">
-      <strong>3 Networks</strong>
+      <strong>4 Network Options</strong>
       <small>Choose your network</small>
     </div>
     <div class="hero-stat">
@@ -593,6 +596,7 @@ footer p{
   </div>
 
   <div class="networks">
+
     <a href="#shop" class="network-card" data-network="MTN">
       <div class="emoji">🟡</div>
       <strong>MTN</strong>
@@ -605,11 +609,18 @@ footer p{
       <small>View Telecel bundles</small>
     </a>
 
-    <a href="#shop" class="network-card" data-network="AT">
+    <a href="#shop" class="network-card" data-network="AT-iShare">
       <div class="emoji">🔵</div>
-      <strong>AT</strong>
-      <small>View AT bundles</small>
+      <strong>AT-iShare</strong>
+      <small>View AT-iShare bundles</small>
     </a>
+
+    <a href="#shop" class="network-card" data-network="AT-BigTime">
+      <div class="emoji">🔷</div>
+      <strong>AT-BigTime</strong>
+      <small>View AT-BigTime bundles</small>
+    </a>
+
   </div>
 </section>
 
@@ -626,10 +637,13 @@ footer p{
     <button class="filter-btn active" data-filter="All">All Bundles</button>
     <button class="filter-btn" data-filter="MTN">🟡 MTN</button>
     <button class="filter-btn" data-filter="Telecel">🔴 Telecel</button>
-    <button class="filter-btn" data-filter="AT">🔵 AT</button>
+    <button class="filter-btn" data-filter="AT-iShare">AT-iShare</button>
+    <button class="filter-btn" data-filter="AT-BigTime">AT-BigTime</button>
   </div>
 
-  <div id="productGrid" class="product-grid"></div>
+  <div id="productGrid" class="product-grid">
+    <p>Loading available data bundles...</p>
+  </div>
 
 </section>
 
@@ -644,7 +658,7 @@ footer p{
     <div class="service-card">
       <div class="emoji">📶</div>
       <h3>Data Bundles</h3>
-      <p>Browse MTN, Telecel and AT data packages.</p>
+      <p>Browse MTN, Telecel, AT-iShare and AT-BigTime data packages.</p>
       <a href="#shop" class="service-link">Shop bundles →</a>
     </div>
 
@@ -801,43 +815,62 @@ const SUPABASE_PUBLISHABLE_KEY =
 const ADMIN_WHATSAPP = "233592459293";
 
 // ======================================
-// PRODUCT PRICES
+// APPROVED RETAIL PRICES
 // ======================================
 
-const products = [
-  // MTN
-  {network:"MTN",bundle:"1GB",amount:5.50},
-  {network:"MTN",bundle:"2GB",amount:11.00},
-  {network:"MTN",bundle:"3GB",amount:16.50},
-  {network:"MTN",bundle:"4GB",amount:22.00},
-  {network:"MTN",bundle:"5GB",amount:27.50},
-  {network:"MTN",bundle:"6GB",amount:33.00},
-  {network:"MTN",bundle:"7GB",amount:38.50},
-  {network:"MTN",bundle:"8GB",amount:44.00},
-  {network:"MTN",bundle:"9GB",amount:49.50},
-  {network:"MTN",bundle:"10GB",amount:55.00},
+// MTN
+const mtnPrices = {
+  "1GB":5.50,
+  "2GB":11.00,
+  "3GB":16.50,
+  "4GB":22.00,
+  "5GB":27.50,
+  "6GB":33.00,
+  "7GB":38.50,
+  "8GB":44.00,
+  "9GB":49.50,
+  "10GB":55.00
+};
 
-  // TELECEL
-  {network:"Telecel",bundle:"5GB",amount:25.00},
-  {network:"Telecel",bundle:"10GB",amount:46.00},
-  {network:"Telecel",bundle:"15GB",amount:69.00},
-  {network:"Telecel",bundle:"20GB",amount:90.00},
-  {network:"Telecel",bundle:"30GB",amount:130.00},
-  {network:"Telecel",bundle:"40GB",amount:175.00},
-  {network:"Telecel",bundle:"50GB",amount:205.00},
+// TELECEL
+const telecelPrices = {
+  "5GB":25.00,
+  "10GB":46.00,
+  "15GB":69.00,
+  "20GB":90.00,
+  "30GB":130.00,
+  "40GB":175.00,
+  "50GB":205.00
+};
 
-  // AT
-  {network:"AT",bundle:"1GB",amount:6.50},
-  {network:"AT",bundle:"2GB",amount:11.50},
-  {network:"AT",bundle:"3GB",amount:16.50},
-  {network:"AT",bundle:"4GB",amount:21.50},
-  {network:"AT",bundle:"5GB",amount:26.50},
-  {network:"AT",bundle:"6GB",amount:31.50},
-  {network:"AT",bundle:"7GB",amount:36.50},
-  {network:"AT",bundle:"8GB",amount:41.50},
-  {network:"AT",bundle:"9GB",amount:46.50},
-  {network:"AT",bundle:"10GB",amount:52.50}
-];
+// AT-iSHARE
+const iSharePrices = {
+  "1GB":6.50,
+  "2GB":11.50,
+  "3GB":16.50,
+  "4GB":21.50,
+  "5GB":26.50,
+  "6GB":31.50,
+  "7GB":36.50,
+  "8GB":41.50,
+  "10GB":52.50
+};
+
+// AT-BIGTIME
+// 30% markup, rounded up to nearest GH₵0.50
+const bigTimePrices = {
+  "20GB":88.50,
+  "25GB":95.00,
+  "30GB":101.50,
+  "40GB":121.00,
+  "50GB":134.00,
+  "100GB":225.00,
+  "200GB":412.50,
+  "250GB":533.00
+};
+
+// Products are loaded from the supplier catalogue.
+let products = [];
 
 // ======================================
 // DATABASE CONNECTION
@@ -891,6 +924,122 @@ function formatPrice(amount) {
 }
 
 // ======================================
+// GET RETAIL PRICE
+// ======================================
+
+function getRetailPrice(network, bundle) {
+
+  if (network === "MTN") {
+    return mtnPrices[bundle] ?? null;
+  }
+
+  if (network === "Telecel") {
+    return telecelPrices[bundle] ?? null;
+  }
+
+  if (network === "AT-iShare") {
+    return iSharePrices[bundle] ?? null;
+  }
+
+  if (network === "AT-BigTime") {
+    return bigTimePrices[bundle] ?? null;
+  }
+
+  return null;
+}
+
+// ======================================
+// LOAD SUPPLIER PACKAGE CATALOGUE
+// ======================================
+
+async function loadSupplierPackages() {
+
+  productGrid.innerHTML =
+    "<p>Loading available data bundles...</p>";
+
+  try {
+
+    const response = await fetch("/api/packages", {
+      method: "GET",
+      headers: {
+        "Accept": "application/json"
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error("Could not load supplier packages.");
+    }
+
+    const result = await response.json();
+
+    if (
+      !result.success ||
+      !Array.isArray(result.data?.packages)
+    ) {
+      throw new Error("The supplier returned an invalid package list.");
+    }
+
+    const allowedNetworks = [
+      "MTN",
+      "Telecel",
+      "AT-iShare",
+      "AT-BigTime"
+    ];
+
+    products = result.data.packages
+
+      .filter(item =>
+        item &&
+        allowedNetworks.includes(item.network)
+      )
+
+      .map(item => {
+
+        const bundle =
+          String(item.size || "").trim().toUpperCase();
+
+        return {
+          network: item.network,
+          bundle: bundle,
+          amount: getRetailPrice(item.network, bundle),
+          volume: Number(item.volume_gb) || null
+        };
+
+      })
+
+      .filter(item => item.bundle)
+
+      .sort((a, b) => {
+
+        const order = {
+          "MTN":1,
+          "Telecel":2,
+          "AT-iShare":3,
+          "AT-BigTime":4
+        };
+
+        if (order[a.network] !== order[b.network]) {
+          return order[a.network] - order[b.network];
+        }
+
+        return (a.volume || 0) - (b.volume || 0);
+
+      });
+
+    renderProducts("All");
+
+  } catch (error) {
+
+    console.error("Package loading error:", error);
+
+    productGrid.innerHTML =
+      "<p class='error'>Unable to load bundles right now. Please refresh the page and try again.</p>";
+
+  }
+
+}
+
+// ======================================
 // DISPLAY PRODUCTS
 // ======================================
 
@@ -898,9 +1047,30 @@ function renderProducts(filter = "All") {
 
   productGrid.innerHTML = "";
 
-  const filtered = products.filter(product =>
-    filter === "All" || product.network === filter
-  );
+  const filtered = products.filter(product => {
+
+    if (filter === "All") {
+      return true;
+    }
+
+    if (filter === "AT") {
+      return (
+        product.network === "AT-iShare" ||
+        product.network === "AT-BigTime"
+      );
+    }
+
+    return product.network === filter;
+
+  });
+
+  if (!filtered.length) {
+
+    productGrid.innerHTML =
+      "<p>No bundles are currently available for this network.</p>";
+
+    return;
+  }
 
   filtered.forEach(product => {
 
@@ -913,7 +1083,8 @@ function renderProducts(filter = "All") {
 
     const networkLabel = document.createElement("div");
     networkLabel.className = "product-network";
-    networkLabel.textContent = emoji + " " + product.network;
+    networkLabel.textContent =
+      emoji + " " + product.network;
 
     const size = document.createElement("div");
     size.className = "product-size";
@@ -921,20 +1092,51 @@ function renderProducts(filter = "All") {
 
     const price = document.createElement("div");
     price.className = "product-price";
-    price.textContent = formatPrice(product.amount);
 
     const detail = document.createElement("div");
     detail.className = "product-detail";
-    detail.textContent = "Data bundle";
+    detail.textContent = "Available data bundle";
 
     const buy = document.createElement("button");
     buy.className = "buy-product";
     buy.type = "button";
-    buy.textContent = "BUY " + formatPrice(product.amount) + " →";
 
-    buy.addEventListener("click", () => {
-      selectProduct(product);
-    });
+    if (product.amount === null) {
+
+      price.textContent = "Contact us";
+      price.style.fontSize = "17px";
+
+      buy.textContent = "ASK FOR PRICE →";
+
+      buy.addEventListener("click", () => {
+
+        const inquiry =
+          "Hello MAYNARD DATA, please give me the selling price for " +
+          product.network + " " + product.bundle + ".";
+
+        window.open(
+          "https://wa.me/" +
+          ADMIN_WHATSAPP +
+          "?text=" +
+          encodeURIComponent(inquiry),
+          "_blank",
+          "noopener"
+        );
+
+      });
+
+    } else {
+
+      price.textContent = formatPrice(product.amount);
+
+      buy.textContent =
+        "BUY " + formatPrice(product.amount) + " →";
+
+      buy.addEventListener("click", () => {
+        selectProduct(product);
+      });
+
+    }
 
     card.append(
       networkLabel,
@@ -945,6 +1147,7 @@ function renderProducts(filter = "All") {
     );
 
     productGrid.appendChild(card);
+
   });
 
 }
@@ -980,10 +1183,12 @@ document.querySelectorAll(".network-card").forEach(card => {
     const network = card.dataset.network;
 
     filterButtons.forEach(button => {
+
       button.classList.toggle(
         "active",
         button.dataset.filter === network
       );
+
     });
 
     renderProducts(network);
@@ -997,6 +1202,10 @@ document.querySelectorAll(".network-card").forEach(card => {
 // ======================================
 
 function selectProduct(product) {
+
+  if (product.amount === null) {
+    return;
+  }
 
   selectedProduct = product;
 
@@ -1036,19 +1245,26 @@ function selectProduct(product) {
 continueButton.addEventListener("click", () => {
 
   if (!selectedProduct) {
+
     messageBox.textContent =
       "Please select a bundle first.";
+
     messageBox.className = "error";
+
     return;
   }
 
   const phone = phoneInput.value.trim();
 
   if (!/^0\d{9}$/.test(phone)) {
+
     messageBox.textContent =
       "Enter a valid 10-digit Ghana phone number.";
+
     messageBox.className = "error";
+
     phoneInput.focus();
+
     return;
   }
 
@@ -1071,16 +1287,22 @@ orderForm.addEventListener("submit", async event => {
   event.preventDefault();
 
   if (!supabaseClient) {
+
     messageBox.textContent =
       "Database connection is not ready. Please check your Supabase settings.";
+
     messageBox.className = "error";
+
     return;
   }
 
-  if (!selectedProduct) {
+  if (!selectedProduct || selectedProduct.amount === null) {
+
     messageBox.textContent =
-      "Please select a bundle.";
+      "Please select a bundle with an approved price.";
+
     messageBox.className = "error";
+
     return;
   }
 
@@ -1093,16 +1315,22 @@ orderForm.addEventListener("submit", async event => {
     document.getElementById("reference").value.trim();
 
   if (!/^0\d{9}$/.test(phone)) {
+
     messageBox.textContent =
       "Please enter a valid recipient phone number.";
+
     messageBox.className = "error";
+
     return;
   }
 
   if (!customer || !reference) {
+
     messageBox.textContent =
       "Please complete all required fields.";
+
     messageBox.className = "error";
+
     return;
   }
 
@@ -1183,6 +1411,7 @@ orderForm.addEventListener("submit", async event => {
   } finally {
 
     submitButton.disabled = false;
+
     submitButton.textContent =
       "SUBMIT ORDER FOR VERIFICATION";
 
@@ -1211,10 +1440,10 @@ document.querySelectorAll(".contact-link").forEach(link => {
 });
 
 // ======================================
-// INITIALIZE
+// INITIALIZE WEBSITE
 // ======================================
 
-renderProducts("All");
+loadSupplierPackages();
 
 </script>
 
