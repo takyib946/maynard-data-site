@@ -1,13 +1,42 @@
 
 export default async function handler(req, res) {
+  const allowedOrigins = [
+    "https://takyib946.github.io",
+    "https://maynard-data-site.vercel.app"
+  ];
+
+  const origin = req.headers.origin;
+
+  res.setHeader("Vary", "Origin");
+
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  } else if (origin) {
+    return res.status(403).json({
+      success: false,
+      error: "Origin not allowed"
+    });
+  }
+
+  res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Accept");
+
+  if (req.method === "OPTIONS") {
+    return res.status(204).end();
+  }
+
   if (req.method !== "GET") {
-    return res.status(405).json({ error: "Method not allowed" });
+    return res.status(405).json({
+      success: false,
+      error: "Method not allowed"
+    });
   }
 
   const apiKey = process.env.KINGFLEXY_API_KEY;
 
   if (!apiKey) {
     return res.status(500).json({
+      success: false,
       error: "Supplier API is not configured"
     });
   }
@@ -23,30 +52,42 @@ export default async function handler(req, res) {
       }
     );
 
-    const result = await response.json();
+    const supplierData = await response.json();
 
-    if (!response.ok || !result.success) {
-      return res.status(response.status || 502).json({
-        error: "Could not load supplier packages"
+    if (!response.ok) {
+      return res.status(response.status).json({
+        success: false,
+        error: "Supplier catalogue unavailable"
       });
     }
 
-    const packages = (result.data?.packages || []).map(item => ({
+    const packages =
+      supplierData?.data?.packages ||
+      supplierData?.packages ||
+      [];
+
+    if (!Array.isArray(packages)) {
+      throw new Error("Invalid supplier package list");
+    }
+
+    const safePackages = packages.map(item => ({
       network: item.network,
       size: item.size,
       volume_gb: item.volume_gb
     }));
 
-    res.setHeader("Cache-Control", "s-maxage=60, stale-while-revalidate=300");
-
     return res.status(200).json({
       success: true,
-      data: { packages, total: packages.length }
+      data: {
+        packages: safePackages,
+        total: safePackages.length
+      }
     });
 
   } catch (error) {
     return res.status(502).json({
-      error: "Could not reach supplier"
+      success: false,
+      error: "Could not load supplier packages"
     });
   }
 }
